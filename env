@@ -20,10 +20,15 @@
 # APP
 #--------------------------------------------------------------------
 
-# app.baseURL = ''
-# If you have trouble with `.`, you could also use `_`.
-# app_baseURL = ''
+# Local (Laragon):
+# app.baseURL = 'http://porto.test/'
+# app.indexPage =
 # app.forceGlobalSecureRequests = false
+#
+# Production (yasti.site) — lihat deploy/env.production.example
+# app.baseURL = 'https://yasti.site/'
+# app.indexPage =
+# app.forceGlobalSecureRequests = true
 # app.CSPEnabled = false
 
 #--------------------------------------------------------------------

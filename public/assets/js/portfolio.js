@@ -1,22 +1,44 @@
-window.addEventListener('load', () => {
-    document.getElementById('loader')?.classList.add('hidden');
-});
-
-if (window.AOS) {
-    AOS.init({ duration: 700, once: true, offset: 80 });
-}
+document.getElementById('loader')?.classList.add('hidden');
 
 const progress = document.getElementById('scrollProgress');
 const backToTop = document.getElementById('backToTop');
+let scrollTicking = false;
+let lastScrollY = 0;
+let backToTopVisible = false;
+
+const updateScrollUi = () => {
+    scrollTicking = false;
+
+    if (!progress && !backToTop) return;
+
+    const scrollY = window.scrollY;
+
+    if (progress) {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const percent = max > 0 ? (scrollY / max) * 100 : 0;
+        progress.style.width = `${percent}%`;
+    }
+
+    if (backToTop) {
+        const shouldShow = scrollY > 500;
+        if (shouldShow !== backToTopVisible) {
+            backToTopVisible = shouldShow;
+            backToTop.classList.toggle('show', shouldShow);
+        }
+    }
+
+    lastScrollY = scrollY;
+};
 
 window.addEventListener('scroll', () => {
-    const max = document.documentElement.scrollHeight - window.innerHeight;
-    const percent = max > 0 ? (window.scrollY / max) * 100 : 0;
-    progress.style.width = `${percent}%`;
-    backToTop.classList.toggle('show', window.scrollY > 500);
-});
+    if (scrollTicking) return;
+    scrollTicking = true;
+    requestAnimationFrame(updateScrollUi);
+}, { passive: true });
 
-backToTop?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+updateScrollUi();
+
+backToTop?.addEventListener('click', () => window.scrollTo({ top: 0 }));
 
 document.getElementById('themeToggle')?.addEventListener('click', () => {
     const root = document.documentElement;

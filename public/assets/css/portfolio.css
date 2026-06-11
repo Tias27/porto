@@ -28,7 +28,6 @@ html {
     width: 100%;
     max-width: 100%;
     overflow-x: hidden;
-    scroll-behavior: smooth;
 }
 body {
     width: 100%;
@@ -81,6 +80,8 @@ section {
     height: 3px;
     width: 0;
     background: linear-gradient(90deg, var(--green), var(--purple));
+    transform: translateZ(0);
+    will-change: width;
 }
 
 .portfolio-nav {
@@ -103,13 +104,12 @@ section {
     padding: 6px 11px;
     border: 1px solid var(--line);
     border-radius: 999px;
-    background: rgba(7, 9, 8, .82);
+    background: rgba(7, 9, 8, .94);
     box-shadow: 0 22px 70px rgba(0, 0, 0, .34);
-    backdrop-filter: blur(22px);
 }
 
 [data-theme="light"] .portfolio-nav .container {
-    background: rgba(255, 255, 255, .86);
+    background: rgba(255, 255, 255, .96);
     box-shadow: 0 18px 55px rgba(31, 41, 55, .11);
 }
 
@@ -207,31 +207,27 @@ section {
     padding: 42px 34px !important;
 }
 
-.mesh {
+.hero-section::before,
+.hero-section::after {
+    content: "";
     position: absolute;
-    width: 520px;
-    height: 520px;
+    width: 360px;
+    height: 360px;
     border-radius: 50%;
-    filter: blur(92px);
-    opacity: .24;
-    animation: float 10s ease-in-out infinite;
+    opacity: .14;
+    pointer-events: none;
 }
 
-.mesh-left {
-    left: -140px;
-    top: 120px;
-    background: var(--green);
+.hero-section::before {
+    left: -100px;
+    top: 80px;
+    background: radial-gradient(circle, var(--green), transparent 70%);
 }
 
-.mesh-right {
-    right: -160px;
-    bottom: 60px;
-    background: var(--purple);
-    animation-delay: -4s;
-}
-
-@keyframes float {
-    50% { transform: translateY(-30px) translateX(18px); }
+.hero-section::after {
+    right: -120px;
+    bottom: 40px;
+    background: radial-gradient(circle, var(--purple), transparent 70%);
 }
 
 .availability {
@@ -346,8 +342,7 @@ section {
     position: absolute;
     inset: 38px;
     border-radius: 30px;
-    background: radial-gradient(circle at 50% 22%, rgba(216, 166, 87, .28), transparent 48%);
-    filter: blur(10px);
+    background: radial-gradient(circle at 50% 22%, rgba(216, 166, 87, .22), transparent 55%);
 }
 
 .portrait-avatar {
@@ -455,6 +450,8 @@ section {
 .foundation-section,
 .section-wrap {
     padding: 52px 16px;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 500px;
 }
 
 .foundation-section .container,
@@ -540,9 +537,9 @@ section {
     border-radius: 24px;
     background:
         linear-gradient(145deg, rgba(255, 255, 255, .055), rgba(255, 255, 255, .018)),
-        rgba(5, 7, 6, .66);
+        rgba(5, 7, 6, .88);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, .04);
-    backdrop-filter: blur(18px);
+    contain: layout style paint;
 }
 
 [data-theme="light"] .service-card,
@@ -873,9 +870,8 @@ section {
     border-radius: 22px;
     background:
         linear-gradient(145deg, rgba(255, 255, 255, .075), rgba(255, 255, 255, .025)),
-        rgba(5, 7, 6, .94);
+        rgba(5, 7, 6, .98);
     box-shadow: 0 26px 80px rgba(0, 0, 0, .45);
-    backdrop-filter: blur(22px);
 }
 
 [data-theme="light"] .ai-chat-panel {
@@ -1069,9 +1065,8 @@ section {
         padding: 10px;
         border: 1px solid var(--line);
         border-radius: 18px;
-        background: rgba(7, 9, 8, .96);
+        background: rgba(7, 9, 8, .98);
         box-shadow: 0 22px 70px rgba(0, 0, 0, .34);
-        backdrop-filter: blur(22px);
     }
 
     [data-theme="light"] .portfolio-nav .navbar-collapse {
@@ -1288,7 +1283,6 @@ section {
         padding: 0 8px 12px;
         overflow-x: auto;
         overflow-y: hidden;
-        scroll-snap-type: x mandatory;
         scrollbar-width: none;
     }
 
@@ -1307,7 +1301,6 @@ section {
         max-width: 330px;
         padding: 14px;
         gap: 12px;
-        scroll-snap-align: start;
     }
 
     .service-card i {
